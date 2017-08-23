@@ -134,6 +134,39 @@
             </div>
         </footer>
     </div>
+    <script type="text/javascript">
+    // Question: What does this code do?
+    $("#submit").on("click", function(event) {
+        event.preventDefault();
+
+        var inputArr = $('.form-control').map(function() {
+            return this.value;
+        }).get();
+
+        //console.log(inputArr);
+
+        var selectArr = $('select').map(function() {
+            //return this.value;
+            return this.options[this.selectedIndex].text;
+
+        }).get();
+
+        //console.log(selectArr);
+
+
+        var responseArr = [inputArr,selectArr];
+
+        console.log(responseArr);
+
+      // Make post request to backend listener and pass newCharacter object.
+      $.post("/api/new", newCharacter)
+      .done(function(data) {
+        console.log(data);
+        alert("Adding character...");
+      });
+
+    });
+    </script>
 </body>
 
 </html>
