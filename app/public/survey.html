@@ -139,56 +139,150 @@
     $("#submit").on("click", function(event) {
         event.preventDefault();
 
-        /*
-            var newObject = Object.keys(myObject).reduce(function(previous, current) {
-                previous[current] = myObject[current] * myObject[current];
-                return previous;
-            }, {});
+        function friendQuery(user) {
 
-            _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
+            // Here we get the location of the root page.
+            // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+            var currentURL = window.location.origin;
 
-        */
+            // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+            $.ajax({ url: currentURL + "/api/friends", method: "GET" })
+                .done(function(friendData) {
+                    console.log(friendData);
+                    console.log(user);
+                    // Here we are logging the URL so we have access to it for troubleshooting
+                    console.log("URL: " + currentURL + "/api/tables");
 
-        /* var inputArr = $('.form-control').map(function() {
-            return this.value;
-        }).get();
+                    /*for (var i = 0; i < friendData.length; i++) {
+                        
+                    };*/
+                    var matchArr = [];
 
-        //console.log(inputArr);
+                    friendData.map(function(friend, index) {
+                        var weMatch = 0;
+                        var thisMatch = [];
+                        for (var key in friend) {
+                            if (friend[key] === user[key]) {
+                                weMatch++;
+                            }
+                            thisMatch = [index, weMatch];
+                        }
+                        matchArr.push(thisMatch)
+                    })
 
-        var selectArr = $('select').map(function() {
-            //return this.value;
-            return this.options[this.selectedIndex].text;
+                    //var duplicateArr = matchArr;
+                    var bestFriend = matchArr.sort(function(a, b) { return a[1] < b[1] });
 
-        }).get();
+                    //console.log(matchArr);
 
-        //console.log(selectArr);
+                    /*console.log("_____________________");
+
+                    console.log(friendData);
+
+                    console.log("--------------------");
+
+                    console.log(bestFriend);
+
+                    console.log("+++++++++++++++++++++++++++++");
+
+                    console.log(friendData[bestFriend[0][0]]);*/
+
+                    alert(friendData[bestFriend[0][0]].name + " | " + friendData[bestFriend[0][0]].image);
+
+                    // Loop through and display each of the customers
+                    /*for (var i = 0; i < tableData.length; i++) {
+
+                        // Create the HTML Well (Section) and Add the table content for each reserved table
+                        var tableSection = $("<div>");
+                        tableSection.addClass("well");
+                        tableSection.attr("id", "tableWell-" + i + 1);
+                        $("#tableSection").append(tableSection);
+
+                        var tableNumber = i + 1;
 
 
-        var responseArr = [inputArr, selectArr];*/
-
-        var questionsObj = {
-            name: $("#name").val().trim(),
-            image: $("#image").val().trim(),
-            q1: $("#q1").val().trim(),
-            q2: $("#q2").val().trim(),
-            q3: $("#q3").val().trim(),
-            q4: $("#q4").val().trim(),
-            q5: $("#q5").val().trim(),
-            q6: $("#q6").val().trim(),
-            q7: $("#q7").val().trim(),
-            q8: $("#q8").val().trim(),
-            q9: $("#q9").val().trim(),
-            q10: $("#q10").val().trim(),
+                        // Then display the remaining fields in the HTML (Section Name, Date, URL)
+                        $("#tableWell-" + i + 1).append("<h2><span class='label label-primary'>" + tableNumber + "</span> | " + tableData[i].customerID + "</h2>");
+                    }*/
+                });
         };
 
-        //console.log(responseArr);
+        // Form validation
+        function validateForm() {
+            var isValid = true;
+            $('.form-control').each(function() {
+                if ($(this).val() === '')
+                    isValid = false;
+            });
 
-        // Make post request to backend listener and pass newCharacter object.
+            $('select').each(function() {
 
-        $.post("/api/friends", questionsObj).done(function(data) {
-            console.log(data);
-            alert("Adding friend...");
-        });
+                if ($(this).val() === "")
+                    isValid = false
+            })
+            return isValid;
+        }
+
+        // If all required fields are filled
+        if (validateForm() == true) {
+
+            /*
+                var newObject = Object.keys(myObject).reduce(function(previous, current) {
+                    previous[current] = myObject[current] * myObject[current];
+                    return previous;
+                }, {});
+
+                _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
+
+            */
+
+            /* var inputArr = $('.form-control').map(function() {
+                return this.value;
+            }).get();
+
+            //console.log(inputArr);
+
+            var selectArr = $('select').map(function() {
+                //return this.value;
+                return this.options[this.selectedIndex].text;
+
+            }).get();
+
+            //console.log(selectArr);
+
+
+            var responseArr = [inputArr, selectArr];*/
+
+            var questionsObj = {
+                name: $("#name").val().trim(),
+                image: $("#image").val().trim(),
+                q1: $("#q1").val().trim(),
+                q2: $("#q2").val().trim(),
+                q3: $("#q3").val().trim(),
+                q4: $("#q4").val().trim(),
+                q5: $("#q5").val().trim(),
+                q6: $("#q6").val().trim(),
+                q7: $("#q7").val().trim(),
+                q8: $("#q8").val().trim(),
+                q9: $("#q9").val().trim(),
+                q10: $("#q10").val().trim(),
+            };
+
+            //console.log(responseArr);
+            friendQuery(questionsObj);
+            // Make post request to backend listener and pass newCharacter object.
+            alert("Matching friend...");
+
+            setTimeout(function() {
+                $.post("/api/friends", questionsObj).done(function(data) {
+                    //console.log(data);
+                    
+                })
+            }, 500);
+
+        } else {
+            alert("Fill out the whole form, my guy!");
+        }
 
     });
     </script>
