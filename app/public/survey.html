@@ -33,11 +33,11 @@
         <h4>Name (Required)</h4>
         <input type="text" name id="name" class="form-control" required>
         <h4>Link to Photo Image (Required)</h4>
-        <input type="text" name id="name" class="form-control" required>
+        <input type="text" name id="image" class="form-control" required>
         <hr>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q1">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -46,7 +46,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q2">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -55,7 +55,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q3">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -64,7 +64,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q4">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -73,7 +73,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q5">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -82,7 +82,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q6">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -91,7 +91,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q7">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -100,7 +100,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q8">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -109,7 +109,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q9">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -118,7 +118,7 @@
         </select>
         <h3><strong>Question 1</strong></h3>
         <h4>TEST QUESTION?</h4>
-        <select class="my_select_box">
+        <select class="my_select_box" id="q10">
             <option value=""></option>
             <option value="volvo">Volvo</option>
             <option value="saab">Saab</option>
@@ -139,7 +139,17 @@
     $("#submit").on("click", function(event) {
         event.preventDefault();
 
-        var inputArr = $('.form-control').map(function() {
+        /*
+            var newObject = Object.keys(myObject).reduce(function(previous, current) {
+                previous[current] = myObject[current] * myObject[current];
+                return previous;
+            }, {});
+
+            _.mapValues({ 'a': 1, 'b': 2, 'c': 3} , function(num) { return num * 3; });
+
+        */
+
+        /* var inputArr = $('.form-control').map(function() {
             return this.value;
         }).get();
 
@@ -154,16 +164,31 @@
         //console.log(selectArr);
 
 
-        var responseArr = [inputArr,selectArr];
+        var responseArr = [inputArr, selectArr];*/
 
-        console.log(responseArr);
+        var questionsObj = {
+            name: $("#name").val().trim(),
+            image: $("#image").val().trim(),
+            q1: $("#q1").val().trim(),
+            q2: $("#q2").val().trim(),
+            q3: $("#q3").val().trim(),
+            q4: $("#q4").val().trim(),
+            q5: $("#q5").val().trim(),
+            q6: $("#q6").val().trim(),
+            q7: $("#q7").val().trim(),
+            q8: $("#q8").val().trim(),
+            q9: $("#q9").val().trim(),
+            q10: $("#q10").val().trim(),
+        };
 
-      // Make post request to backend listener and pass newCharacter object.
-      $.post("/api/new", newCharacter)
-      .done(function(data) {
-        console.log(data);
-        alert("Adding character...");
-      });
+        //console.log(responseArr);
+
+        // Make post request to backend listener and pass newCharacter object.
+
+        $.post("/api/friends", questionsObj).done(function(data) {
+            console.log(data);
+            alert("Adding friend...");
+        });
 
     });
     </script>
