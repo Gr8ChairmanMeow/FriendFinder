@@ -28,7 +28,7 @@ var friends = [{
 },
 {
     name: "UsuarioDos",
-    image: "https://s-media-cache-ak0.pinimg.com/originals/a5/43/7e/a5437ecc2ab152de7c0d69ed800af4a4.gif",
+    image: "https://media.giphy.com/media/YIuO9UUgpZapy/giphy.gif",
     q1: "noodles",
     q2: "cat",
     q3: "often",
