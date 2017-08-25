@@ -19,16 +19,23 @@
     });
     </script>
     <style>
-    button {
+    #submit {
         margin-top: 1.1em;
+    }
+
+    #homePage {
+        position: relative;
+        float:right;
+        margin-top: 0.5em;
     }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h2>Survey Questions</h2>
-        <hr>
+        <h2 style="position:relative;float:left">Survey Questions</h2>
+        <a href="/"><button type="button" id="homePage" class="btn btn-lg btn-default"><span class="glyphicon glyphicon-home"></span></button></a>
+        <hr style="position:relative;clear:both">
         <h3><strong>About You</strong></h3>
         <h4>Name (Required)</h4>
         <input type="text" name id="name" class="form-control" required>
@@ -139,7 +146,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close cerrar" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Friend Matched!</h4>
                     </div>
                     <div class="modal-body" style="width:100%;text-align:center">
@@ -147,14 +154,21 @@
                         <span id="bestiePic" style=""></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default cerrar" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
-    // Question: What does this code do?
+
+    $(".cerrar").on("click", function(event) {
+        setTimeout(function(){
+            window.location.reload();
+        },50)
+    });
+
+
     $("#submit").on("click", function(event) {
         event.preventDefault();
 
@@ -194,7 +208,8 @@
                     var score = Math.round((bestFriend[0][1] / 12) * 100);
                     var pic = document.createElement("img"); // Create with DOM
                     $(pic).attr("src", friendData[bestFriend[0][0]].image);
-                    $(pic).attr("width", 150);
+                    $(pic).attr("width", 475);
+                    $(pic).attr("style", "border:solid black 4px; padding:0.7em")
 
                     //console.log(matchArr);
                     /*console.log(bestFriend[0][1]);
