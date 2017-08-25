@@ -1,16 +1,16 @@
 var friends = [{
-    name: "Jimmy",
+    name: "Potato",
     image: "http://images.clipartpanda.com/sun-clipart-Transparent-sun-with-shades-clipart-picture-5.png",
-    q1: "volvo",
-    q2: "saab",
-    q3: "opel",
-    q4: "audi",
-    q5: "volvo",
-    q6: "saab",
-    q7: "opel",
-    q8: "audi",
-    q9: "volvo",
-    q10: "saab"
+    q1: "vegan",
+    q2: "bear",
+    q3: "never",
+    q4: "bernie",
+    q5: "dead",
+    q6: "neither",
+    q7: "futility",
+    q8: "weak",
+    q9: "offended",
+    q10: "broke"
 }];
 
 module.exports = friends;
